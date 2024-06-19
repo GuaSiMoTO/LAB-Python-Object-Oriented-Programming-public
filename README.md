@@ -80,3 +80,12 @@ Create a graphical user interface (GUI) for the Tamagotchi simulator.
 
 Upon completion, run the following commands:
 
+```
+$ git add .
+$ git commit -m "done"
+$ git push origin main
+```
+
+Then create a Pull Request!!
+
+![happy_coding](https://user-images.githubusercontent.com/970858/63899010-c23fc480-c9ea-11e9-84a2-542907e42362.png)

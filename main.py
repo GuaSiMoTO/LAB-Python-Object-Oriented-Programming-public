@@ -14,6 +14,11 @@ class Tamagotchi:
         self.energy_level -= 5 
         return f' FEED! {self.name}: hunger = {self.hunger_level}, Energy = {self.energy_level}'
     
+    def regañar (self):
+        self.happiness_level -= 10
+        self.energy_level -= 5
+        return f'REGAÑAR! {self.name}: Happiness = {self.happiness_level}, Energy= {self.energy_level}'
+    
     def rest (self):
         """Método que debe ser implementado por cada subclase"""
         raise NotImplementedError("Cada subclase debe implementar su propio método rest()")
@@ -67,6 +72,7 @@ class mouse (Tamagotchi):
 
 def create_tamagotchi():
     os.system('clear')
+    print("\n--- CREAR TAMAGOTCHI ---")
     name = input("\nNombre del Tamagotchi: ").capitalize().strip()
     species = input("Especie (dog/cat/mouse): ").lower().strip()
     
@@ -77,10 +83,13 @@ def create_tamagotchi():
     elif species == "mouse":
         pet = mouse(name)
     else:
-        print("Especie inválida")
-        return None
+        print("Especie inválida, prueba con 'dog', 'cat' o 'mouse'")
+        time.sleep(2)
+        return None    
+
     
     print(f"{pet.name} creado!")
+    time.sleep(2)
     return pet
 
 def show_status(pet):
@@ -97,8 +106,9 @@ def interact_with_pet(pet):
         print("1. Alimentar")
         print("2. Hacer ruido")
         print("3. Descansar")
-        print("4. Ver estado")
-        print("5. Volver al menú principal")
+        print("4. Regañar")
+        print("5. Ver estado")
+        print("6. Volver al menú principal")
         
         choice = input("Elige una opción: ")
         
@@ -114,12 +124,14 @@ def interact_with_pet(pet):
         elif choice == "3":
             print(pet.rest())
         elif choice == "4":
-            show_status(pet)
+            print(pet.regañar())
         elif choice == "5":
+            show_status(pet)
+        elif choice == "6":
             break
         else:
             print("Opción inválida")
-        time.sleep(3)
+        time.sleep(2)
 
 def main():
     pets = []
@@ -142,7 +154,8 @@ def main():
                 print("No hay Tamagotchis creados!")
                 time.sleep(2)
                 continue
-                
+            os.system('clear')
+            print("\n--- TAMAGOTCHIS ---")    
             print("\nTamagotchis disponibles:")
             for i, pet in enumerate(pets, 1):
                 print(f"{i}. {pet.name} ({pet.species})")
@@ -153,6 +166,7 @@ def main():
                 interact_with_pet(selected_pet)
             except (ValueError, IndexError):
                 print("Opción inválida")
+                time.sleep(2)
         elif choice == "3":
             print("¡Adiós! NO VUELVAS A MOLESTARME")
             break
